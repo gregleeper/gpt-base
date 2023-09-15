@@ -340,9 +340,7 @@ export default function IndexPage() {
             </button>
           </div>
         </Form>
-        <p className="made-with text-xs text-center mt-4">
-          Made with ❤️ by <a target="_blank" href="http://joshuasanger.ca">Josh Sanger</a>
-        </p>
+        
       </div>
     </main>
   );
