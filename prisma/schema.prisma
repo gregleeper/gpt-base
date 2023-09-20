@@ -13,9 +13,9 @@ generator client {
 
 model Context {
   id            String   @id @default(uuid())
-  rubric        String
-  requirements  String
-  assistantRole String
+  rubric        String   @db.VarChar(5000)
+  requirements  String   @db.VarChar(5000)
+  assistantRole String   @db.VarChar(5000)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
