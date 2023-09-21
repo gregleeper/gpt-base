@@ -57,6 +57,11 @@ export async function action({
     orderBy: {
       createdAt: "desc",
     },
+    select: {
+      assistantRole: true,
+      rubric: true,
+      requirements: true,
+    },
   });
   if (!context) {
     return {
@@ -66,11 +71,17 @@ export async function action({
   }
   // take the keys of the context object and map them to an array of objects
   // with a role of "system" and the content of the value
-  const myContext = Object.keys(context).map((key) => ({
-    role: "system",
-    content: context[key as keyof typeof context] as string,
-  }));
-
+  const myContext = Object.keys(context).map((key) => {
+    if (key === "id" || key === "createdAt" || key === "updatedAt") {
+    } else {
+      return {
+        role: "system",
+        content: context[key as keyof typeof context] as string,
+      };
+    }
+  });
+  console.log("myContext: ", myContext);
+  
   // store your key in .env
   const conf = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
@@ -344,9 +355,7 @@ export default function IndexPage() {
         {chatHistory.length === 0 && (
           <div className="intro grid place-items-center h-full text-center">
             <div className="intro-content">
-              <h1 className="text-4xl font-semibold">
-                Gippity GPT-3.5 Grader
-              </h1>
+              <h1 className="text-4xl font-semibold">Gippity GPT-3.5</h1>
               <p className="mt-4">
                 If you're unsure of the context, just ask ☺️
               </p>
